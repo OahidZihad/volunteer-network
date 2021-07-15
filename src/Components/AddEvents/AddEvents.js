@@ -28,7 +28,12 @@ const AddEvents = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" name="name" placeholder="Event name" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Event name"
+          ref={register}
+        />
 
         <input
           name="exampleRequired"
