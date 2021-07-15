@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+volunteer-network-server/node_modules/
+volunteer-network-server/.env
+
 # testing
 /coverage
 
