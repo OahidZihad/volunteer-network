@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
+const ObjectId = require("mongodb").ObjectId;
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9wgmh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
 const app = express();
@@ -25,6 +26,20 @@ client.connect((err) => {
       console.log("inserted count", result.insertedCount);
       res.send(result.insertedCount > 0);
     });
+  });
+
+  app.get("/events", (req, res) => {
+    eventCollection.find().toArray((err, items) => {
+      res.send(items);
+    });
+  });
+
+  app.delete("/deleteEvent/:id", (req, res) => {
+    // const id = ObjectId(req.params.id);
+    // console.log("delete this", id);
+    eventCollection
+      .deleteOne({ _id: ObjectId(req.params.id) })
+      .then((result) => res.send(result.deletedCount > 0));
   });
 });
 
